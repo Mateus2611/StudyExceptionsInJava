@@ -102,4 +102,14 @@ public class UserModel {
         sb.append('}');
         return sb.toString();
     }
+
+    public String toCsvString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("id:").append(id).append(";");
+        sb.append("name:").append(name).append(";");
+        sb.append("email:").append(email).append(";");
+        sb.append("birthday:").append(birthday).append(";");
+
+        return sb.toString();
+    }
 }

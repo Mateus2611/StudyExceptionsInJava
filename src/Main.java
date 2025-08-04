@@ -1,5 +1,7 @@
+import br.com.dio.dao.InterfaceUserDAO;
 import br.com.dio.dao.UserDAO;
 import br.com.dio.exception.EmptyStorageException;
+import br.com.dio.exception.FileDontExistException;
 import br.com.dio.exception.UserNotFoundException;
 import br.com.dio.exception.ValidatorException;
 import br.com.dio.model.MenuOption;
@@ -10,11 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
-
-    private final static UserDAO dao = new UserDAO();
     private final static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
+    
+    public static void main(String[] args) throws FileDontExistException {
+        InterfaceUserDAO dao = new UserDAO("database.csv");
+        
         while (true) {
             System.out.println("Bem vindo ao cadastro de usuários, selecione a operação desejada");
             System.out.println("1 - Cadastrar");
@@ -62,7 +64,7 @@ public class Main {
                     try {
                         var user = dao.findById(requestToFindById());
                         System.out.printf("Usuário com id %s \n", user.getId());
-                        System.out.println(user);
+                        System.out.println(user.toString());
                     } catch (UserNotFoundException | EmptyStorageException ex) {
                         System.out.println(ex.getMessage());
                     }
